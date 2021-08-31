@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<records>
+    <profit_source>
+        <name>Lockpicking</name>
+        <cost_init>1</cost_init>
+        <cost_coeff>1.2</cost_coeff>
+        <revenue>1</revenue>
+        <cooldown>1</cooldown>
+        <unlock_cost>0</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>Email Scam</name>
+        <cost_init>50</cost_init>
+        <cost_coeff>1.5</cost_coeff>
+        <revenue>25</revenue>
+        <cooldown>5</cooldown>
+        <unlock_cost>25</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>Email Virus</name>
+        <cost_init>100</cost_init>
+        <cost_coeff>1.75</cost_coeff>
+        <revenue>50</revenue>
+        <cooldown>10</cooldown>
+        <unlock_cost>50</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>DOS Attack</name>
+        <cost_init>500</cost_init>
+        <cost_coeff>2</cost_coeff>
+        <revenue>250</revenue>
+        <cooldown>25</cooldown>
+        <unlock_cost>250</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>Cookie Injection</name>
+        <cost_init>1000</cost_init>
+        <cost_coeff>2.2</cost_coeff>
+        <revenue>500</revenue>
+        <cooldown>50</cooldown>
+        <unlock_cost>500</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>Quantum Decryption</name>
+        <cost_init>5000</cost_init>
+        <cost_coeff>2.5</cost_coeff>
+        <revenue>1000</revenue>
+        <cooldown>100</cooldown>
+        <unlock_cost>2500</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+    <profit_source>
+        <name>Server Nuke</name>
+        <cost_init>10000</cost_init>
+        <cost_coeff>2.75</cost_coeff>
+        <revenue>5000</revenue>
+        <cooldown>500</cooldown>
+        <unlock_cost>5000</unlock_cost>
+        <img>PUT IMAGE SOURCE HERE</img>
+    </profit_source>
+</records>

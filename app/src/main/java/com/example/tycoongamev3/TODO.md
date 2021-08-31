@@ -1,0 +1,27 @@
+Things to do:
+- [x] Create the UI components for the Business class
+    - [x] TextView, ProgressBar, Button, ImgView
+    - [x] Have them interface with the Business class so that it'll change it on tick
+- [ ] Create the background algorithm to calculate increases as time passes
+    - [ ] SystemClock.elapsedRealtimeNanos()
+    - [x] Check to see if you can diversify onto multiple threads such that each Business is on its own thread.
+        - Made handlers for each one and it seems to work
+- [ ] Clean up the UI
+    - [x] Use a RecyclerView to continuously add in new LinearLayouts
+        - [x] Make it interact with the RecyclerView based on the different Business values
+        - [x] Remember to flip the blocker on and off so that it's not just empty.
+    - [ ] Make it look nice and change the theme
+        - [ ] https://stackoverflow.com/questions/13153201/how-to-show-circular-text-using-textview-in-android
+- [ ] Incorporate upgrades
+    - [ ] Managers feels like a bit much but it is doable
+    - [ ] Other upgrades is just normal things
+    - [ ] Figure out how to switch between fragments with a nice transition
+        - [ ] ViewPager is good.
+        - [ ] https://developer.android.com/guide/fragments/animate
+        - [ ] https://developer.android.com/guide/topics/resources/animation-resource#java
+        - [ ] https://developer.android.com/guide/navigation/navigation-animate-transitions
+- [x] Main thing is the RecyclerView part
+- [ ] Write user info to a file so that it saves
+    - [ ] https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/
+- [ ] Implement goals/tasks so that the user has an incentive to select certain options over others
+    - [ ] Timing and a point system?
