@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,12 +38,9 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
         holder.mIdView.setText(mValues.get(position).content);
         holder.mContentView.setText(mValues.get(position).details);
 
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int p = holder.getBindingAdapterPosition();
-                businesses.get(p % businesses.size()).setMultiplier(10);
-            }
+        holder.buyButton.setOnClickListener(view -> {
+            int p = holder.getBindingAdapterPosition();
+            businesses.get(p % businesses.size()).setMultiplier(10);
         });
     }
 
@@ -55,6 +53,7 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
+        public final Button buyButton;
         public UpgradeItem mItem;
 
         public ViewHolder(UpgradeFragmentBinding binding) {
@@ -62,6 +61,7 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
             mIdView = binding.itemNumber;
             mContentView = binding.content;
             mImageView = binding.imageView3;
+            buyButton = binding.buyButton;
         }
 
         @Override

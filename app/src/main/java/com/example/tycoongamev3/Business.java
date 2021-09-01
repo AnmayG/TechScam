@@ -1,5 +1,6 @@
 package com.example.tycoongamev3;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -57,8 +59,8 @@ public class Business {
     // General variables
     private int level = 1;
     private static final NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(Locale.US);
-    private int multiplier = 10;
-    private boolean hasManager = false;
+    private int multiplier = 1;
+    private boolean isManager = false;
 
     public long getTaskStartTime() { return taskStartTime; }
     public void setTaskStartTime(long taskStartTime) { this.taskStartTime = taskStartTime; }
@@ -80,9 +82,15 @@ public class Business {
     public int getProgressValue() { return progressValue; }
     public void setTopBar(FrameLayout topBar) { this.topBar = topBar; }
     public long getUnlockCost() { return unlockCost; }
-    public void setMultiplier(int multiplier) { this.multiplier *= multiplier; }
-    public void setHasManager(boolean b){
-        hasManager = b;
+
+    public void setMultiplier(int multiplier) {
+        this.multiplier *= multiplier;
+        revView.setText(toCurrencyNotation(calculateRev(), true));
+    }
+
+    public void setManager(boolean b){
+        isManager = b;
+        handler.removeCallbacks(this.progressTask);
         runRepeatTask(0);
     }
 
@@ -202,7 +210,7 @@ public class Business {
     }
 
     public long calculateRev(){
-        return (long) (revenue * level * 100);
+        return (long) (revenue * level * multiplier * 100);
     }
 
     public long calculateNewCost(){
@@ -213,6 +221,7 @@ public class Business {
         TextView moneyView = topBar.findViewById(R.id.topTextView);
         MainFragment.addMoney(deposit);
         moneyView.setText(toCurrencyNotation(MainFragment.getMoney(), true));
+        // TODO: Deactivate buttons
     }
 
     // FIXME: A long isn't big enough to store quintillions of dollars so that's a problem.
