@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link UpgradeItem}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecyclerViewAdapter.ViewHolder> {
 

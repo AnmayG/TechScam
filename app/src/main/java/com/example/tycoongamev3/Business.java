@@ -210,6 +210,7 @@ public class Business {
         moneyView.setText(toCurrencyNotation(MainFragment.getMoney()));
     }
 
+    // FIXME: A long isn't big enough to store quintillions of dollars so that's a problem.
     public static String toCurrencyNotation(long d){
         if(d < 1000 && d > -1000) {
             return dollarFormat.format(d / 100.0);
