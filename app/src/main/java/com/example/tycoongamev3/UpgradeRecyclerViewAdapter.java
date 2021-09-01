@@ -6,20 +6,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.tycoongamev3.PlaceholderContent.PlaceholderItem;
+import com.example.tycoongamev3.UpgradeContent.UpgradeItem;
 import com.example.tycoongamev3.databinding.UpgradeFragmentBinding;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link UpgradeItem}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<UpgradeItem> mValues;
 
-    public UpgradeRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public UpgradeRecyclerViewAdapter(List<UpgradeItem> items) {
         mValues = items;
     }
 
@@ -45,7 +45,7 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public UpgradeItem mItem;
 
         public ViewHolder(UpgradeFragmentBinding binding) {
             super(binding.getRoot());

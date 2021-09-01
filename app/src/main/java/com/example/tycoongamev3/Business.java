@@ -206,7 +206,6 @@ public class Business {
 
     public void setMoneyView(long deposit){
         TextView moneyView = topBar.findViewById(R.id.topTextView);
-        System.out.println(deposit + " " + MainFragment.getMoney());
         MainFragment.addMoney(deposit);
         moneyView.setText(toCurrencyNotation(MainFragment.getMoney()));
     }

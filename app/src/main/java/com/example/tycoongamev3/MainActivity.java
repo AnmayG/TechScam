@@ -1,5 +1,7 @@
 package com.example.tycoongamev3;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -33,14 +35,19 @@ public class MainActivity extends AppCompatActivity {
     private static final ArrayList<Business> businesses = new ArrayList<>();
     private Handler handler;
     public static final String TAG = "MainActivity";
+    @SuppressLint("StaticFieldLeak") // Fixed in UpgradeContent
+    private static Context mContext;
+
+    public static Context getmContext() {
+        return mContext;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        mContext = getApplicationContext();
 //        setSupportActionBar(binding.toolbar);
 //
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

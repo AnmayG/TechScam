@@ -6,20 +6,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.tycoongamev3.PlaceholderContent.PlaceholderItem;
+import com.example.tycoongamev3.ManagerContent.ManagerItem;
 import com.example.tycoongamev3.databinding.ManagerFragmentBinding;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link ManagerItem}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<ManagerItem> mValues;
 
-    public ManagerRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public ManagerRecyclerViewAdapter(List<ManagerItem> items) {
         mValues = items;
     }
 
@@ -43,7 +43,7 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mContentView;
         public final TextView mDetailsView;
-        public PlaceholderItem mItem;
+        public ManagerItem mItem;
 
         public ViewHolder(ManagerFragmentBinding binding) {
             super(binding.getRoot());

@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tycoongamev3.databinding.ManagerFragmentListBinding;
-import com.example.tycoongamev3.PlaceholderContent;
+import com.example.tycoongamev3.ManagerContent;
 
 /**
  * A fragment representing a list of Items.
@@ -65,7 +65,7 @@ public class ManagerFragment extends Fragment {
         // Set the adapter
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(PlaceholderContent.ITEMS));
+        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS));
         return rootView;
     }
 

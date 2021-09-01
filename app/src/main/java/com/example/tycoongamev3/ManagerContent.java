@@ -8,18 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
-public class PlaceholderContent {
+public class ManagerContent {
 
     /**
-     * An array of sample (placeholder) items.
+     * An array of sample (Manager) items.
      */
-    public static final List<PlaceholderItem> ITEMS = new ArrayList<>();
+    public static final List<ManagerItem> ITEMS = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private static final String[] managerNames = {
             "Bobby\nBurglar",
@@ -32,27 +26,27 @@ public class PlaceholderContent {
     };
 
     /**
-     * A map of sample (placeholder) items, by ID.
+     * A map of sample (Manager) items, by ID.
      */
-    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
+    public static final Map<String, ManagerItem> ITEM_MAP = new HashMap<String, ManagerItem>();
 
     private static final int COUNT = businesses.size();
 
     static {
         // Add some sample items.
         for (int i = 0; i < COUNT; i++) {
-            addItem(createPlaceholderItem(i));
+            addItem(createManagerItem(i));
         }
 
     }
 
-    private static void addItem(PlaceholderItem item) {
+    private static void addItem(ManagerItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), managerNames[position], makeDetails(position));
+    private static ManagerItem createManagerItem(int position) {
+        return new ManagerItem(String.valueOf(position), managerNames[position], makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -60,14 +54,14 @@ public class PlaceholderContent {
     }
 
     /**
-     * A placeholder item representing a piece of content.
+     * A Manager item representing a piece of content.
      */
-    public static class PlaceholderItem {
+    public static class ManagerItem {
         public final String id;
         public final String content;
         public final String details;
 
-        public PlaceholderItem(String id, String content, String details) {
+        public ManagerItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;

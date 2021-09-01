@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tycoongamev3.databinding.UpgradeFragmentListBinding;
-import com.example.tycoongamev3.PlaceholderContent;
+import com.example.tycoongamev3.UpgradeContent;
 
 /**
  * A fragment representing a list of Items.
@@ -64,7 +64,7 @@ public class UpgradeFragment extends Fragment {
         // Set the adapter
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(PlaceholderContent.ITEMS));
+        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS));
         return rootView;
     }
 
