@@ -112,11 +112,11 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
         }
 
         String blockerText = business.getName() + ": " +
-                             Business.toCurrencyNotation(business.getUnlockCost());
+                             Business.toCurrencyNotation(business.getUnlockCost()*100, false);
         viewHolder.getBlocker().setText(blockerText);
         viewHolder.getTextView().setText(business.formatSecondsToTimeStamp(business.getCooldown()));
         viewHolder.getLevelView().setText(String.valueOf(business.getLevel()));
-        viewHolder.getButton().setText(Business.toCurrencyNotation(business.getInitCost() * 100L));
+        viewHolder.getButton().setText(Business.toCurrencyNotation(business.getInitCost() * 100L, false));
         viewHolder.getProgressBar().setMax(business.getCooldown() * 1000);
         viewHolder.getProgressBar().setProgress(business.getProgressValue());
         //mDataSet.get(position).runRepeatTask(1);

@@ -16,13 +16,13 @@ public class ManagerContent {
     public static final List<ManagerItem> ITEMS = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private static final String[] managerNames = {
-            "Bobby\nBurglar",
-            "Niger\nPrince",
+            "Bobby Burglar",
+            "Niger Prince",
             "TokTik",
-            "Spamuel\nSpam",
-            "Sequel\nPerson",
-            "Harvard\nGrad",
-            "Mr. Red\nButton"
+            "Spamuel Spam",
+            "Sequel Person",
+            "Harvard Grad",
+            "Mr. Red Button"
     };
 
     /**
@@ -50,7 +50,7 @@ public class ManagerContent {
     }
 
     private static String makeDetails(int position) {
-        return "Manages\n" + businesses.get(position).getName();
+        return "Manages " + businesses.get(position).getName();
     }
 
     /**

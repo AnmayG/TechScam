@@ -57,6 +57,8 @@ public class Business {
     // General variables
     private int level = 1;
     private static final NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(Locale.US);
+    private int multiplier = 10;
+    private boolean hasManager = false;
 
     public long getTaskStartTime() { return taskStartTime; }
     public void setTaskStartTime(long taskStartTime) { this.taskStartTime = taskStartTime; }
@@ -76,11 +78,12 @@ public class Business {
     }
     public boolean isUnlocked() { return unlocked; }
     public int getProgressValue() { return progressValue; }
-    public void setTopBar(FrameLayout topBar) {
-        this.topBar = topBar;
-    }
-    public long getUnlockCost() {
-        return unlockCost;
+    public void setTopBar(FrameLayout topBar) { this.topBar = topBar; }
+    public long getUnlockCost() { return unlockCost; }
+    public void setMultiplier(int multiplier) { this.multiplier *= multiplier; }
+    public void setHasManager(boolean b){
+        hasManager = b;
+        runRepeatTask(0);
     }
 
     public Business(Element source){
@@ -136,6 +139,7 @@ public class Business {
             if (millis > cooldown * 1000L) {
                 handler.removeCallbacks(this.progressTask);
                 progressBar.setProgress(0);
+                progressValue = 0;
                 textView.setText(formatSecondsToTimeStamp(cooldown));
                 numRuns = 0;
                 isRunning = false;
@@ -181,6 +185,7 @@ public class Business {
             if (millis > cooldown * 1000L) {
                 handler.removeCallbacks(this.repeatTask);
                 progressBar.setProgress(0);
+                progressValue = 0;
                 textView.setText(formatSecondsToTimeStamp(cooldown));
                 numRuns = 0;
                 isRunning = false;
@@ -207,17 +212,17 @@ public class Business {
     public void setMoneyView(long deposit){
         TextView moneyView = topBar.findViewById(R.id.topTextView);
         MainFragment.addMoney(deposit);
-        moneyView.setText(toCurrencyNotation(MainFragment.getMoney()));
+        moneyView.setText(toCurrencyNotation(MainFragment.getMoney(), true));
     }
 
     // FIXME: A long isn't big enough to store quintillions of dollars so that's a problem.
-    public static String toCurrencyNotation(long d){
+    public static String toCurrencyNotation(long d, boolean longForm){
         if(d < 1000 && d > -1000) {
             return dollarFormat.format(d / 100.0);
         }else if(d <= -1000) {
-            return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d / 100.0)));
+            return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d / 100.0)), longForm);
         }else{
-            return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d / 100.0)));
+            return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d / 100.0)), longForm);
         }
     }
 
@@ -253,8 +258,8 @@ public class Business {
             unlocked = true;
         });
 
-        button.setText(toCurrencyNotation(costStorage));
-        revView.setText(toCurrencyNotation(calculateRev()));
+        button.setText(toCurrencyNotation(costStorage, false));
+        revView.setText(toCurrencyNotation(calculateRev(), true));
 
         imageView.setOnClickListener(view -> {
             if(!isRunning) {
@@ -267,11 +272,11 @@ public class Business {
             levelView.setText(String.valueOf(level));
 
             long c = calculateNewCost();
-            button.setText(toCurrencyNotation(c));
+            button.setText(toCurrencyNotation(c, false));
             setMoneyView(-1 * costStorage);
             costStorage = c;
 
-            revView.setText(toCurrencyNotation(calculateRev()));
+            revView.setText(toCurrencyNotation(calculateRev(), true));
         });
     }
 

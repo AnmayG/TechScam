@@ -76,7 +76,8 @@ public class UpgradeContent {
     }
 
     private static String makeDetails(int position) {
-        return "Upgrades\n" + businesses.get(position % businesses.size()).getName();
+        int multi = 10 + 10 * (position/businesses.size());
+        return "Increases " + businesses.get(position % businesses.size()).getName() + " profits by " + multi + "x.";
     }
 
     /**
