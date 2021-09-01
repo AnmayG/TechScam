@@ -12,6 +12,7 @@ Things to do:
         - [x] Remember to flip the blocker on and off so that it's not just empty.
     - [ ] Make it look nice and change the theme
         - [ ] https://stackoverflow.com/questions/13153201/how-to-show-circular-text-using-textview-in-android
+        - [ ] Pictures: https://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
 - [ ] Incorporate upgrades
     - [ ] Managers feels like a bit much but it is doable
     - [ ] Other upgrades is just normal things

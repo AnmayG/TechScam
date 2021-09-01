@@ -21,6 +21,15 @@ public class PlaceholderContent {
      */
     public static final List<PlaceholderItem> ITEMS = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
+    private static final String[] managerNames = {
+            "Bobby\nBurglar",
+            "Niger\nPrince",
+            "TokTik",
+            "Spamuel\nSpam",
+            "Sequel\nPerson",
+            "Harvard\nGrad",
+            "Mr. Red\nButton"
+    };
 
     /**
      * A map of sample (placeholder) items, by ID.
@@ -31,7 +40,7 @@ public class PlaceholderContent {
 
     static {
         // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
+        for (int i = 0; i < COUNT; i++) {
             addItem(createPlaceholderItem(i));
         }
 
@@ -43,15 +52,11 @@ public class PlaceholderContent {
     }
 
     private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new PlaceholderItem(String.valueOf(position), managerNames[position], makeDetails(position));
     }
 
     private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+        return "Manages\n" + businesses.get(position).getName();
     }
 
     /**
