@@ -39,6 +39,7 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
         holder.mContentView.setText(mValues.get(position).details);
 
         holder.buyButton.setOnClickListener(view -> {
+            // TODO: Deactivate buttons on bind if unaffordable
             int p = holder.getBindingAdapterPosition();
             businesses.get(p % businesses.size()).setMultiplier(10);
         });

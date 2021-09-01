@@ -36,6 +36,8 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).content);
         holder.mDetailsView.setText(mValues.get(position).details);
+        // TODO: Deactivate buttons on bind if unaffordable
+
         holder.buyButton.setOnClickListener(view -> {
             int p = holder.getBindingAdapterPosition();
             businesses.get(p).setManager(true);

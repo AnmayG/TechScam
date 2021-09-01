@@ -13,16 +13,28 @@ Things to do:
     - [ ] Make it look nice and change the theme
         - [ ] https://stackoverflow.com/questions/13153201/how-to-show-circular-text-using-textview-in-android
         - [ ] Pictures: https://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
-- [ ] Incorporate upgrades
-    - [ ] Managers feels like a bit much but it is doable
-    - [ ] Other upgrades is just normal things
-    - [ ] Figure out how to switch between fragments with a nice transition
-        - [ ] ViewPager is good.
-        - [ ] https://developer.android.com/guide/fragments/animate
-        - [ ] https://developer.android.com/guide/topics/resources/animation-resource#java
-        - [ ] https://developer.android.com/guide/navigation/navigation-animate-transitions
+        - [ ] Borders: https://stackoverflow.com/questions/3496269/how-do-i-put-a-border-around-an-android-textview
+        - [ ] Circular ImageView: https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
+- [x] Incorporate upgrades
+    - [x] Managers feels like a bit much but it is doable
+    - [x] Other upgrades is just normal things
+- [ ] Figure out how to switch between fragments with a nice transition
+    - [x] ViewPager is good.
+    - [ ] https://developer.android.com/guide/fragments/animate
+    - [ ] https://developer.android.com/guide/topics/resources/animation-resource#java
+    - [ ] https://developer.android.com/guide/navigation/navigation-animate-transitions
 - [x] Main thing is the RecyclerView part
 - [ ] Write user info to a file so that it saves
     - [ ] https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/
 - [ ] Implement goals/tasks so that the user has an incentive to select certain options over others
-    - [ ] Timing and a point system?
+    - [ ] Timing and a point system like AdCap tasks?
+- [ ] Deal with bugs
+    - [ ] The business needs to be bought before it can be upgraded
+    - [ ] An unbought business will continue to tick as long as it has a manager
+    - [ ] Large amounts of money won't work
+    - Going to be bugs with the money system
+        - Need to get money working better
+- [ ] Deactivate buttons and prevent them from purchasing things if they don't fit the criteria
+    - This, the background algorithm, and the UI cleanup are the most important.
+- [ ] Need to get the prestige system working somehow
+    - [ ] Problem is going to be the background algorithm, might just be total money collected / some number
