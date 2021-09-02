@@ -3,6 +3,7 @@ package com.example.tycoongamev3;
 import com.example.tycoongamev3.Business;
 import com.example.tycoongamev3.MainActivity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,8 @@ public class ManagerContent {
     }
 
     private static ManagerItem createManagerItem(int position) {
-        return new ManagerItem(String.valueOf(position), managerNames[position], makeDetails(position));
+        return new ManagerItem(String.valueOf(position), managerNames[position], makeDetails(position),
+                BigDecimal.valueOf(10).pow(position + 3).multiply(BigDecimal.valueOf(businesses.get(position).getInitCost())));
     }
 
     private static String makeDetails(int position) {
@@ -60,11 +62,13 @@ public class ManagerContent {
         public final String id;
         public final String content;
         public final String details;
+        public final BigDecimal price;
 
-        public ManagerItem(String id, String content, String details) {
+        public ManagerItem(String id, String content, String details, BigDecimal price) {
             this.id = id;
             this.content = content;
             this.details = details;
+            this.price = price;
         }
 
         @Override

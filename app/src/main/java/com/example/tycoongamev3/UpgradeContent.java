@@ -74,7 +74,6 @@ public class UpgradeContent {
 
     private static UpgradeItem createUpgradeItem(int position) {
         // Multiply by 50,000 because needs 100 for the /100, another 100 to start at 500, and a 5 for fun
-        System.out.println(String.valueOf(BigDecimal.valueOf(10).pow(position + 4)));
         return new UpgradeItem(String.valueOf(position), upgradeNames.get(position), makeDetails(position),
                 BigDecimal.valueOf(10).pow(position + 4).multiply(BigDecimal.valueOf(5)));
     }
