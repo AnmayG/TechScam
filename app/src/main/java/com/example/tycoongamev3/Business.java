@@ -19,6 +19,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -232,6 +234,16 @@ public class Business {
             return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d / 100.0)), longForm);
         }else{
             return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d / 100.0)), longForm);
+        }
+    }
+    public static String toCurrencyNotation(BigDecimal d, boolean longForm){
+        BigDecimal thousand = BigDecimal.valueOf(1000);
+        if(d.compareTo(thousand) < 0 && d.compareTo(thousand.multiply(BigDecimal.valueOf(-1))) > 0) {
+            return dollarFormat.format(d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+        }else if(d.compareTo(BigDecimal.valueOf(-1000)) <= 0) {
+            return "-$" + NumberNames.createString(d.divide(BigDecimal.valueOf(-100), RoundingMode.HALF_DOWN), longForm);
+        }else{
+            return "$" + NumberNames.createString(d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN), longForm);
         }
     }
 

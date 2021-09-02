@@ -5,6 +5,7 @@ import android.content.Context;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +73,10 @@ public class UpgradeContent {
     }
 
     private static UpgradeItem createUpgradeItem(int position) {
-        return new UpgradeItem(String.valueOf(position), upgradeNames.get(position), makeDetails(position));
+        // Multiply by 50,000 because needs 100 for the /100, another 100 to start at 500, and a 5 for fun
+        System.out.println(String.valueOf(BigDecimal.valueOf(10).pow(position + 4)));
+        return new UpgradeItem(String.valueOf(position), upgradeNames.get(position), makeDetails(position),
+                BigDecimal.valueOf(10).pow(position + 4).multiply(BigDecimal.valueOf(5)));
     }
 
     private static String makeDetails(int position) {
@@ -87,11 +91,13 @@ public class UpgradeContent {
         public final String id;
         public final String content;
         public final String details;
+        public final BigDecimal price;
 
-        public UpgradeItem(String id, String content, String details) {
+        public UpgradeItem(String id, String content, String details, BigDecimal price) {
             this.id = id;
             this.content = content;
             this.details = details;
+            this.price = price;
         }
 
         @Override
