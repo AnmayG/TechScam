@@ -64,6 +64,7 @@ public class ManagerContent {
         public final String content;
         public final String details;
         public final BigDecimal price;
+        public boolean activated = false;
 
         public ManagerItem(String id, String content, String details, BigDecimal price) {
             this.id = id;

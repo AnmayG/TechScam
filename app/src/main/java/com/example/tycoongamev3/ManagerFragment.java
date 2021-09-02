@@ -28,7 +28,7 @@ public class ManagerFragment extends Fragment {
     protected RecyclerView recyclerView;
 
     private MoneyViewModel viewModel;
-    private long money = 0L;
+    // need an object reference so I'm using an array
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,7 +65,9 @@ public class ManagerFragment extends Fragment {
         // Set the adapter
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS));
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
         return rootView;
     }
 
@@ -74,12 +76,5 @@ public class ManagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.button.setOnClickListener(view1 -> NavHostFragment.findNavController(ManagerFragment.this)
                 .navigate(R.id.action_ManagerFragment_to_SecondFragment));
-
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
-        viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
-            TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
-            moneyView.setText(Business.toCurrencyNotation(money, true));
-            this.money = money;
-        });
     }
 }

@@ -1,16 +1,18 @@
 package com.example.tycoongamev3;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.tycoongamev3.ManagerContent.ManagerItem;
 import com.example.tycoongamev3.databinding.ManagerFragmentBinding;
+import com.example.tycoongamev3.databinding.ManagerFragmentListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +24,35 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     private List<ManagerItem> saveValues = new ArrayList<>();
     private List<ManagerItem> mValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
+    private long[] money = {0L};
+    private MoneyViewModel viewModel;
 
     // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
     // This seems like a pretty hacky way to do it but it lets me update all of the textviews at the same time whenever the money changes.
 
-    public ManagerRecyclerViewAdapter(List<ManagerItem> items) {
+    public ManagerRecyclerViewAdapter(List<ManagerItem> items, MoneyViewModel viewModel,
+                                      ManagerFragmentListBinding binding, LifecycleOwner viewLifecycleOwner) {
         if(saveValues.size() == mValues.size()) {
             mValues = items;
             saveValues = new ArrayList<>(items);
         }
+
+        this.viewModel = viewModel;
+        this.viewModel.getMoney().observe(viewLifecycleOwner, money -> {
+            TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
+            moneyView.setText(Business.toCurrencyNotation(money, true));
+            this.money[0] = money;
+            for (int i = 0; i < mValues.size(); i++) {
+                ManagerItem managerItem = mValues.get(i);
+                if(money - managerItem.price.longValueExact() >= 0) {
+                    managerItem.activated = true;
+                    // TODO: Add UI change here
+                } else {
+                    managerItem.activated = false;
+                    // TODO: Add UI change here
+                }
+            }
+        });
     }
 
     @NonNull
@@ -49,8 +71,11 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         // TODO: Deactivate buttons on bind if unaffordable
 
         holder.buyButton.setOnClickListener(view -> {
-            int p = removeAt(holder.getBindingAdapterPosition());
-            businesses.get(p).setManager(true);
+            int p = getWorkingPosition(position);
+            if(mValues.get(p).activated) {
+                p = removeAt(holder.getBindingAdapterPosition());
+                businesses.get(p).setManager(true);
+            }
         });
     }
 
@@ -59,6 +84,10 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mValues.size());
         return origIndex;
+    }
+
+    public int getWorkingPosition(int position){
+        return saveValues.indexOf(mValues.get(position));
     }
 
     @Override
