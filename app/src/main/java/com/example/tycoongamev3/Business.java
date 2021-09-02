@@ -63,19 +63,10 @@ public class Business {
     private int multiplier = 1;
     private boolean isManager = false;
 
-    public long getTaskStartTime() { return taskStartTime; }
-    public void setTaskStartTime(long taskStartTime) { this.taskStartTime = taskStartTime; }
-    public Element getSrc() { return src; }
-    public Runnable getProgressTask() { return progressTask; }
-    public Runnable getRepeatTask() {
-        return repeatTask;
-    }
     public String getName() { return name; }
     public int getInitCost() { return initCost; }
-    public double getCostCoeff() { return costCoeff; }
     public double getRevenue() { return revenue; }
     public int getCooldown() { return cooldown; }
-    public String getImg() { return img; }
     public int getLevel() {
         return level;
     }

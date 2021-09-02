@@ -2,8 +2,10 @@ package com.example.tycoongamev3;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         // This seems just like the <include> tag but it's dynamic so it might be different
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            MainFragment fragment = new MainFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
-            transaction.commit();
-        }
+//        if (savedInstanceState == null) {
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            MainFragment fragment = new MainFragment();
+//            transaction.replace(R.id.sample_content_fragment, fragment);
+//            transaction.commit();
+//        }
 
         // Create a new handler then create the BUSINESSES based off of the stored XML values
         handler = new Handler();
@@ -69,6 +71,36 @@ public class MainActivity extends AppCompatActivity {
         for (Business s: businesses) {
             Log.println(Log.DEBUG, TAG, s.toString());
         }
+
+        loadPrefs("create");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        long time = System.currentTimeMillis();
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong("time_save", time);
+        editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPrefs("resume");
+    }
+
+    int counter = 0;
+
+    public void loadPrefs(String name){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        long time_save = sharedPreferences.getLong("time_save", 0);
+        System.out.println(name + " " + counter + ":");
+        System.out.println(counter + " " + SystemClock.elapsedRealtime());
+        System.out.println(counter + " " + System.currentTimeMillis() + " " + time_save + " " + (System.currentTimeMillis() - time_save));
+        counter++;
     }
 
     @Override
