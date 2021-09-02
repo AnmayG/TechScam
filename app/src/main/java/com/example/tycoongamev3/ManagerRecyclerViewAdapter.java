@@ -23,6 +23,9 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     private List<ManagerItem> mValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
 
+    // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
+    // This seems like a pretty hacky way to do it but it lets me update all of the textviews at the same time whenever the money changes.
+
     public ManagerRecyclerViewAdapter(List<ManagerItem> items) {
         if(saveValues.size() == mValues.size()) {
             mValues = items;

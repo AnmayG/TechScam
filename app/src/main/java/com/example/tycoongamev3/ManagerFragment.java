@@ -2,20 +2,20 @@ package com.example.tycoongamev3;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.tycoongamev3.databinding.ManagerFragmentListBinding;
-import com.example.tycoongamev3.ManagerContent;
 
 /**
  * A fragment representing a list of Items.
@@ -26,6 +26,9 @@ public class ManagerFragment extends Fragment {
     private int mColumnCount = 1;
     private ManagerFragmentListBinding binding;
     protected RecyclerView recyclerView;
+
+    private MoneyViewModel viewModel;
+    private long money = 0L;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -72,5 +75,12 @@ public class ManagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.button.setOnClickListener(view1 -> NavHostFragment.findNavController(ManagerFragment.this)
                 .navigate(R.id.action_ManagerFragment_to_SecondFragment));
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
+            TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
+            moneyView.setText(Business.toCurrencyNotation(money, true));
+            this.money = money;
+        });
     }
 }

@@ -33,6 +33,7 @@ public class ManagerContent {
 
     private static final int COUNT = businesses.size();
 
+    // This came with the template and is kind of like a constructor that is called when the class is created
     static {
         // Add some sample items.
         for (int i = 0; i < COUNT; i++) {

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,16 @@ public class MainFragment extends Fragment {
     protected ArrayList<Business> mDataset;
     public static long[] money = {0};
 
-    public static void addMoney(long money2) { MainFragment.money[0] += money2; }
-    public static long getMoney() { return MainFragment.money[0]; }
+    private static MoneyViewModel viewModel;
+
+    public static void addMoney(long money2) {
+        MainFragment.money[0] += money2;
+        viewModel.addMoney(money2);
+    }
+
+    public static long getMoney() {
+        return MainFragment.money[0];
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -97,6 +106,11 @@ public class MainFragment extends Fragment {
         TextView topView = (TextView) binding.topLayout.findViewById(R.id.topTextView);
         topView.setText(Business.toCurrencyNotation(getMoney(), true));
 
+        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel.getMoney().observe(getViewLifecycleOwner(), set -> {
+            // Update the selected filters UI
+            topView.setText(Business.toCurrencyNotation(getMoney(), true));
+        });
     }
 
     @Override

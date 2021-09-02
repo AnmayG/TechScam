@@ -1,6 +1,7 @@
 package com.example.tycoongamev3;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -12,14 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -222,7 +221,6 @@ public class Business {
     public void setMoneyView(long deposit){
         TextView moneyView = topBar.findViewById(R.id.topTextView);
         MainFragment.addMoney(deposit);
-        moneyView.setText(toCurrencyNotation(MainFragment.getMoney(), true));
         // TODO: Deactivate buttons
     }
 
