@@ -28,8 +28,6 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
     private static List<UpgradeItem> saveValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
 
-    // TODO: Add money view that'll constantly be updated
-
     public UpgradeRecyclerViewAdapter(List<UpgradeItem> items) {
         // If the working values (or at least its size) is equal to the save that we have, set the items to the new input.
         // This is because I want to have the latest copy of `items` but I don't want to change workingValues if it's already been bought.

@@ -37,7 +37,6 @@ public class ManagerFragment extends Fragment {
     public ManagerFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ManagerFragment newInstance(int columnCount) {
         ManagerFragment fragment = new ManagerFragment();
@@ -57,7 +56,7 @@ public class ManagerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = ManagerFragmentListBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
