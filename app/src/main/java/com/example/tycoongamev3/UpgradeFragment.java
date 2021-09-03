@@ -66,7 +66,9 @@ public class UpgradeFragment extends Fragment {
         // Set the adapter
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS));
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
         return rootView;
     }
 

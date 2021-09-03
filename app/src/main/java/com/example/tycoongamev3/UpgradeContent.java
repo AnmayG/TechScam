@@ -86,11 +86,13 @@ public class UpgradeContent {
     /**
      * A Upgrade item representing a piece of content.
      */
+
     public static class UpgradeItem {
         public final String id;
         public final String content;
         public final String details;
         public final BigDecimal price;
+        public boolean activated = false;
 
         public UpgradeItem(String id, String content, String details, BigDecimal price) {
             this.id = id;

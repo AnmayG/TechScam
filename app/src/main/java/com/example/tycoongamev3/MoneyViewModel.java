@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.math.BigDecimal;
+
 // https://developer.android.com/guide/fragments/communicate
 // I'm using a ViewModel to transfer data between the fragments so that I can have live updates for things like the money.
 // This is better than using a FragmentManager and the transactions because this is actually live(ish) rather than based on a commit system.
@@ -24,6 +26,15 @@ public class MoneyViewModel extends ViewModel {
             money.setValue(out);
         } else {
             money.setValue(deposit);
+        }
+    }
+
+    public void addMoney(BigDecimal deposit) {
+        if(money.getValue() != null) {
+            long out = money.getValue() + deposit.longValueExact();
+            money.setValue(out);
+        } else {
+            money.setValue(deposit.longValueExact());
         }
     }
 }

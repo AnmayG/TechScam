@@ -26,7 +26,6 @@ public class MainFragment extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Business> mDataset;
     public static long[] money = {0};
-
     private static MoneyViewModel viewModel;
 
     public static void addMoney(long money2) {

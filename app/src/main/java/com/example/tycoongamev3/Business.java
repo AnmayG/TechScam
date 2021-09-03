@@ -1,7 +1,5 @@
 package com.example.tycoongamev3;
 
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -130,8 +128,6 @@ public class Business {
             int seconds = (int) (millis / 1000);
             numRuns += 10;
 
-            // System.out.println(progressBar.getProgress() + " " + cooldown*1000 + " " + millis + " " + numRuns + " " + (start + millis));
-
             progressBar.incrementProgressBy(10);
             textView.setText(formatSecondsToTimeStamp(cooldown - seconds));
 
@@ -176,8 +172,6 @@ public class Business {
             int seconds = (int) (millis / 1000);
             numRuns += 10;
 
-            // System.out.println(progressBar.getProgress() + " " + cooldown*1000 + " " + millis + " " + numRuns + " " + (start + millis));
-
             progressBar.incrementProgressBy(10);
             textView.setText(formatSecondsToTimeStamp(cooldown - seconds));
 
@@ -218,22 +212,24 @@ public class Business {
 
     // FIXME: A long isn't big enough to store quintillions of dollars so that's a problem.
     public static String toCurrencyNotation(long d, boolean longForm){
-        if(d < 1000 && d > -1000) {
-            return dollarFormat.format(d / 100.0);
+        double d2 = d / 100.0;
+        if(d2 < 1000 && d2 > -1000) {
+            return dollarFormat.format(d2);
         }else if(d <= -1000) {
-            return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d / 100.0)), longForm);
+            return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d2)), longForm);
         }else{
-            return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d / 100.0)), longForm);
+            return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d2)), longForm);
         }
     }
     public static String toCurrencyNotation(BigDecimal d, boolean longForm){
         BigDecimal thousand = BigDecimal.valueOf(1000);
+        d = d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN);
         if(d.compareTo(thousand) < 0 && d.compareTo(thousand.multiply(BigDecimal.valueOf(-1))) > 0) {
-            return dollarFormat.format(d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+            return dollarFormat.format(d);
         }else if(d.compareTo(BigDecimal.valueOf(-1000)) <= 0) {
-            return "-$" + NumberNames.createString(d.divide(BigDecimal.valueOf(-100), RoundingMode.HALF_DOWN), longForm);
+            return "-$" + NumberNames.createString(d, longForm);
         }else{
-            return "$" + NumberNames.createString(d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN), longForm);
+            return "$" + NumberNames.createString(d, longForm);
         }
     }
 
@@ -269,9 +265,7 @@ public class Business {
             unlocked = true;
         });
 
-        System.out.println("HERE" + costStorage);
         button.setText(toCurrencyNotation(costStorage, false));
-        System.out.println(button.getText());
         revView.setText(toCurrencyNotation(calculateRev(), true));
 
         imageView.setOnClickListener(view -> {

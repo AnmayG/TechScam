@@ -37,7 +37,7 @@
         <img>PUT IMAGE SOURCE HERE</img>
     </profit_source>
     <profit_source>
-        <name>SQL Cookie Injection</name>
+        <name>Straight up Hacking</name>
         <cost_init>1000</cost_init>
         <cost_coeff>2.2</cost_coeff>
         <revenue>500</revenue>
