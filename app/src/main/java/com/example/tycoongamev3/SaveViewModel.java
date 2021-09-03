@@ -44,6 +44,10 @@ public class SaveViewModel extends ViewModel {
         }
     }
 
+    public void setMoneyZero() {
+        money.setValue(BigDecimal.ZERO);
+    }
+
     public MutableLiveData<List<ManagerItem>> getSaveManagerValues() {
         return saveManagerValues;
     }

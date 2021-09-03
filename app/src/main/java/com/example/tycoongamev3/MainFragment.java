@@ -27,7 +27,7 @@ public class MainFragment extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Business> mDataset;
     private static SaveViewModel viewModel;
-    private static ArrayList<Business> businesses = MainActivity.getBusinesses();
+    private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
 
     public static void addMoney(BigDecimal money2) {
         viewModel.addMoney(money2);

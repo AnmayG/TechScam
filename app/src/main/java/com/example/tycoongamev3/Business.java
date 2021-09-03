@@ -62,6 +62,7 @@ public class Business {
     private boolean isManager = false;
     private boolean purchasable = false;
     private boolean levelable = false;
+    private BigDecimal prestigeAmount = BigDecimal.ZERO;
 
     public String getName() { return name; }
     public int getInitCost() { return initCost; }
@@ -152,6 +153,7 @@ public class Business {
             // This is technically recursive but android docs say its better since it's very lightweight
             // It's not constantly creating new things that get constantly allocated while never being deallocated
             // I don't have to wait for garbage collection to clean it up and I have more knowledge about milliseconds than TimerTasks.
+            // but yeah it's just a reimplementation of TimerTasks so...
             handler.postAtTime(this.progressTask, start + numRuns + 10);
         };
     }
@@ -197,12 +199,39 @@ public class Business {
             // This is technically recursive but android docs say its better since it's very lightweight
             // It's not constantly creating new things that get constantly allocated while never being deallocated
             // I don't have to wait for garbage collection to clean it up and I have more knowledge about milliseconds than TimerTasks.
+            // but yeah it's just a reimplementation of TimerTasks so...
             handler.postAtTime(this.repeatTask, start + numRuns + 10);
         };
     }
 
     public BigDecimal calculateRev(){
-        return BigDecimal.valueOf(revenue * level).multiply(BigDecimal.valueOf(multiplier * 100L));
+        BigDecimal prestigeBenefit = pow(BigDecimal.valueOf(1.02), prestigeAmount);
+        return BigDecimal.valueOf(revenue * level)
+                .multiply(BigDecimal.valueOf(multiplier * 100L)
+                        .multiply(prestigeBenefit));
+    }
+
+    // http://www.java2s.com/example/java-utility-method/bigdecimal-power/pow-bigdecimal-base-bigdecimal-exponent-2249f.html
+    public static BigDecimal pow(BigDecimal base, BigDecimal exponent) {
+        BigDecimal result;
+        int signOf2 = exponent.signum();
+
+        // Perform X^(A+B)=X^A*X^B (B = remainder)
+        double dn1 = base.doubleValue();
+        // Compare the same row of digits according to context
+        BigDecimal n2 = exponent.multiply(new BigDecimal(signOf2)); // n2 is now positive
+        BigDecimal remainderOf2 = n2.remainder(BigDecimal.ONE);
+        BigDecimal n2IntPart = n2.subtract(remainderOf2);
+        // Calculate big part of the power using context -
+        // bigger range and performance but lower accuracy
+        BigDecimal intPow = base.pow(n2IntPart.intValueExact());
+        BigDecimal doublePow = BigDecimal.valueOf(Math.pow(dn1, remainderOf2.doubleValue()));
+        result = intPow.multiply(doublePow);
+
+        // Fix negative power
+        if (signOf2 == -1)
+            result = BigDecimal.ONE.divide(result, RoundingMode.HALF_UP);
+        return result;
     }
 
     public BigDecimal calculateNewCost(){
