@@ -27,8 +27,9 @@ public class MainFragment extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Business> mDataset;
     private static SaveViewModel viewModel;
+    private static ArrayList<Business> businesses = MainActivity.getBusinesses();
 
-    public static void addMoney(long money2) {
+    public static void addMoney(BigDecimal money2) {
         viewModel.addMoney(money2);
     }
 
@@ -43,7 +44,7 @@ public class MainFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
 
         // TODO: Get rid of max money mode
-        viewModel.addMoney(Long.MAX_VALUE);
+        viewModel.addMoney(BigDecimal.valueOf(Long.MAX_VALUE));
     }
 
     // RecyclerView Code used from:
@@ -110,8 +111,22 @@ public class MainFragment extends Fragment {
 
         viewModel.getMoney().observe(getViewLifecycleOwner(), set -> {
             // Update the selected filters UI
+            deactivateButtons();
             topView.setText(Business.toCurrencyNotation(getMoney(), true));
         });
+    }
+
+    public void deactivateButtons(){
+        for (int i = 0; i < businesses.size(); i++) {
+            Business business = businesses.get(i);
+            if(business.getCostStorage().compareTo(MainFragment.getMoney()) <= 0) {
+                business.setLevelable(true);
+                // TODO: UI changes
+            } else {
+                business.setLevelable(false);
+                // TODO: UI changes
+            }
+        }
     }
 
     @Override

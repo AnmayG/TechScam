@@ -20,19 +20,20 @@ import com.example.tycoongamev3.UpgradeContent.UpgradeItem;
 public class SaveViewModel extends ViewModel {
     private final MutableLiveData<BigDecimal> money = new MutableLiveData<>(BigDecimal.ZERO);
     private final MutableLiveData<List<ManagerItem>> saveManagerValues = new MutableLiveData<>();
+    private final MutableLiveData<BigDecimal> rep = new MutableLiveData<>();
 
     public LiveData<BigDecimal> getMoney() {
         return money;
     }
 
-    public void addMoney(long deposit) {
-        if(money.getValue() != null) {
-            BigDecimal out = money.getValue().add(BigDecimal.valueOf(deposit));
-            money.setValue(out);
-        } else {
-            money.setValue(BigDecimal.valueOf(deposit));
-        }
-    }
+//    public void addMoney(long deposit) {
+//        if(money.getValue() != null) {
+//            BigDecimal out = money.getValue().add(BigDecimal.valueOf(deposit));
+//            money.setValue(out);
+//        } else {
+//            money.setValue(BigDecimal.valueOf(deposit));
+//        }
+//    }
 
     public void addMoney(BigDecimal deposit) {
         if(money.getValue() != null) {
@@ -49,5 +50,17 @@ public class SaveViewModel extends ViewModel {
 
     public void setSaveManagerValues(List<ManagerItem> l) {
         saveManagerValues.setValue(l);
+    }
+
+    public MutableLiveData<BigDecimal> getRep() {
+        return rep;
+    }
+
+    public void addRep(BigDecimal bi) {
+        if(rep.getValue() != null) {
+            rep.setValue(rep.getValue().add(bi));
+        } else {
+            rep.setValue(bi);
+        }
     }
 }

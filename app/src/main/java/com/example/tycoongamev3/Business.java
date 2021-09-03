@@ -53,7 +53,7 @@ public class Business {
     private long numRuns = 0;
     private int progressValue;
     private boolean unlocked;
-    private long costStorage;
+    private BigDecimal costStorage;
 
     // General variables
     private int level = 1;
@@ -61,6 +61,7 @@ public class Business {
     private int multiplier = 1;
     private boolean isManager = false;
     private boolean purchasable = false;
+    private boolean levelable = false;
 
     public String getName() { return name; }
     public int getInitCost() { return initCost; }
@@ -71,9 +72,10 @@ public class Business {
     public int getProgressValue() { return progressValue; }
     public void setTopBar(FrameLayout topBar) { this.topBar = topBar; }
     public BigDecimal getUnlockCost() { return unlockCost; }
-    public long getCostStorage() { return costStorage; }
+    public BigDecimal getCostStorage() { return costStorage; }
     public boolean isPurchasable() { return purchasable; }
     public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
+    public void setLevelable(boolean levelable) { this.levelable = levelable; }
 
     public void setMultiplier(int multiplier) {
         this.multiplier *= multiplier;
@@ -102,7 +104,7 @@ public class Business {
 
         progressTask = buildProgressTask();
         repeatTask = buildRepeatTask(0);
-        costStorage = initCost * 100L;
+        costStorage = BigDecimal.valueOf(initCost * 100L);
     }
 
     private String getValue(String tag) {
@@ -199,30 +201,20 @@ public class Business {
         };
     }
 
-    public long calculateRev(){
-        return (long) (revenue * level * multiplier * 100);
+    public BigDecimal calculateRev(){
+        return BigDecimal.valueOf(revenue * level).multiply(BigDecimal.valueOf(multiplier * 100L));
     }
 
-    public long calculateNewCost(){
-        return (long) (initCost * Math.pow(costCoeff, level) * 100);
+    public BigDecimal calculateNewCost(){
+        BigDecimal pow = BigDecimal.valueOf(costCoeff).pow(level);
+        return pow.multiply(BigDecimal.valueOf(initCost * 100L));
     }
 
-    public void setMoneyView(long deposit){
-        TextView moneyView = topBar.findViewById(R.id.topTextView);
+    public void setMoneyView(BigDecimal deposit){
         MainFragment.addMoney(deposit);
         // TODO: Deactivate buttons
     }
 
-    public static String toCurrencyNotation(long d, boolean longForm){
-        double d2 = d / 100.0;
-        if(d2 < 1000 && d2 > -1000) {
-            return dollarFormat.format(d2);
-        }else if(d <= -1000) {
-            return "-$" + NumberNames.createString(new BigDecimal(String.valueOf(-1 * d2)), longForm);
-        }else{
-            return "$" + NumberNames.createString(new BigDecimal(String.valueOf(d2)), longForm);
-        }
-    }
     public static String toCurrencyNotation(BigDecimal d, boolean longForm){
         d = d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN);
         if(d.compareTo(BigDecimal.valueOf(1000)) < 0 && d.compareTo(BigDecimal.valueOf(-1000)) > 0) {
@@ -278,15 +270,17 @@ public class Business {
         });
 
         button.setOnClickListener(view -> {
-            level++;
-            levelView.setText(String.valueOf(level));
+            if(levelable) {
+                level++;
+                levelView.setText(String.valueOf(level));
 
-            long c = calculateNewCost();
-            button.setText(toCurrencyNotation(c, false));
-            setMoneyView(-1 * costStorage);
-            costStorage = c;
+                BigDecimal c = calculateNewCost();
+                button.setText(toCurrencyNotation(c, false));
+                setMoneyView(costStorage.negate());
+                costStorage = c;
 
-            revView.setText(toCurrencyNotation(calculateRev(), true));
+                revView.setText(toCurrencyNotation(calculateRev(), true));
+            }
         });
     }
 

@@ -28,13 +28,13 @@ Things to do:
     - [ ] https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/
 - [ ] Implement goals/tasks so that the user has an incentive to select certain options over others
     - [ ] Timing and a point system like AdCap tasks?
-- [ ] Deal with bugs
-    - [ ] The business needs to be bought before it can be upgraded
-    - [ ] An unbought business will continue to tick as long as it has a manager
+- [x] Deal with bugs
+    - [x] The business needs to be bought before it can be upgraded
+    - [x] An unbought business will continue to tick as long as it has a manager
     - [x] Large amounts of money won't work
     - Going to be bugs with the money system
         - Need to get money working better
 - [x] Deactivate buttons and prevent them from purchasing things if they don't fit the criteria
     - This, the background algorithm, and the UI cleanup are the most important.
 - [ ] Need to get the prestige system working somehow
-    - [ ] Problem is going to be the background algorithm, might just be total money collected / some number
+    - [x] Problem is going to be the background algorithm, might just be total money collected / some number

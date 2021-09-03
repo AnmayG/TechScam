@@ -5,18 +5,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.tycoongamev3.databinding.PrestigeFragmentBinding;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PrestigeFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class PrestigeFragment extends Fragment {
 
@@ -24,38 +28,22 @@ public class PrestigeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
+    private static SaveViewModel viewModel;
     private PrestigeFragmentBinding binding;
+    private BigDecimal amountRep = BigDecimal.ZERO;
+    private ArrayList<Business> businesses = MainActivity.getBusinesses();
+    private BigDecimal repGain = BigDecimal.ZERO;
 
     public PrestigeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PrestigeFragment.
-     */
-    public static PrestigeFragment newInstance(String param1, String param2) {
-        PrestigeFragment fragment = new PrestigeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
+        amountRep = viewModel.getRep().getValue();
     }
 
     @Override
@@ -71,5 +59,24 @@ public class PrestigeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.button.setOnClickListener(view1 -> NavHostFragment.findNavController(PrestigeFragment.this)
                 .navigate(R.id.action_PrestigeFragment_to_SecondFragment));
+        TextView prestigeView = binding.prestigeView;
+        TextView repView = binding.repView;
+        repView.setText(Business.toCurrencyNotation(viewModel.getRep().getValue(), true).substring(1));
+
+        viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
+            // Update the selected filters UI
+            BigDecimal levelSum = BigDecimal.ZERO;
+            for (int i = 0; i < businesses.size(); i++) {
+                levelSum = levelSum.add(BigDecimal.valueOf(businesses.get(i).getLevel()));
+            }
+            repGain = money.divide(levelSum, BigDecimal.ROUND_DOWN);
+            prestigeView.setText(Business.toCurrencyNotation(repGain, true).substring(1));
+        });
+
+        binding.button2.setOnClickListener(view12 -> {
+            viewModel.addRep(repGain);
+            // TODO: Add a reset function that'll reset everything
+            //  Also add an impact to the reputation gain.
+        });
     }
 }
