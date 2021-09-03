@@ -23,7 +23,7 @@ public class ManagerContent {
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private static final String[] managerNames = {
             "Bobby Burglar",
-            "Niger Prince",
+            "Nigerian Prince",
             "TokTik",
             "Spamuel Spam",
             "Sequel Person",

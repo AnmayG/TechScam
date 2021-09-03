@@ -67,7 +67,7 @@ public class ManagerFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
         Resources res = getResources();
-        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner(), res));
+        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner(), res, context.getPackageName()));
         return rootView;
     }
 

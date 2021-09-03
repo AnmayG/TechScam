@@ -13,4 +13,9 @@
     <string name="managers">Managers</string>
     <string name="upgrades">Upgrades</string>
     <string name="prestige">Prestige</string>
+    <string name="manager_description">Hire a manager to automate your businesses!</string>
+    <string name="filler_money">$0.00</string>
+    <string name="managers_title">Managers</string>
+    <string name="upgrade_description">Buy an upgrade to make your businesses more profitable!</string>
+    <string name="upgrades_title">Upgrades</string>
 </resources>

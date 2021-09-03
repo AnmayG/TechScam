@@ -81,6 +81,7 @@ public class Business {
     public boolean isPurchasable() { return purchasable; }
     public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
     public void setLevelable(boolean levelable) { this.levelable = levelable; }
+    public String getImg() { return img; }
 
     public void setMultiplier(int multiplier) {
         this.multiplier *= multiplier;
@@ -306,7 +307,7 @@ public class Business {
         });
 
         button.setOnClickListener(view -> {
-            if(levelable) {
+            if(levelable && MainFragment.getMoney().compareTo(costStorage) >= 0) {
                 level++;
                 levelView.setText(String.valueOf(level));
 

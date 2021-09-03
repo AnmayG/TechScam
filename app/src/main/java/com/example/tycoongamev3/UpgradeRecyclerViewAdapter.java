@@ -1,9 +1,11 @@
 package com.example.tycoongamev3;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import java.util.List;
  */
 public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecyclerViewAdapter.ViewHolder> {
     private static List<UpgradeItem> workingValues = new ArrayList<>();
+    private final Resources resources;
+    private final String packageName;
+
     /**
      * This is a list that contains the original items we saved.
      */
@@ -32,7 +37,11 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
     private SaveViewModel viewModel;
 
     public UpgradeRecyclerViewAdapter(List<UpgradeItem> items, SaveViewModel viewModel,
-                                      UpgradeFragmentListBinding binding, LifecycleOwner viewLifecycleOwner) {
+                                      UpgradeFragmentListBinding binding, LifecycleOwner viewLifecycleOwner,
+                                      Resources resources, String packageName) {
+        this.resources = resources;
+        this.packageName = packageName;
+
         // If the working values (or at least its size) is equal to the save that we have, set the items to the new input.
         // This is because I want to have the latest copy of `items` but I don't want to change workingValues if it's already been bought.
         // That would lead to stuff reappearing and it's just generally not fun to deal with.
@@ -74,6 +83,11 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
         holder.mIdView.setText(upgradeItem.content);
         holder.mContentView.setText(upgradeItem.details);
         holder.mPriceView.setText(Business.toCurrencyNotation(upgradeItem.price, true));
+
+        int normalPos = getWorkingPosition(position);
+        String image = businesses.get(normalPos % businesses.size()).getImg();
+        holder.mImageView.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                resources.getIdentifier(image, "drawable", packageName), null));
 
         holder.buyButton.setOnClickListener(view -> {
             int p = getWorkingPosition(position);

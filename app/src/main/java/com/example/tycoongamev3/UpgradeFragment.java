@@ -59,14 +59,15 @@ public class UpgradeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = UpgradeFragmentListBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.upgrade_list);
+        recyclerView = rootView.findViewById(R.id.upgrade_list);
 
         // Set the adapter
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
-        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
+        recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS, viewModel, binding,
+                getViewLifecycleOwner(), getResources(), context.getPackageName()));
         return rootView;
     }
 
@@ -79,7 +80,7 @@ public class UpgradeFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
         viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
-            moneyView.setText(Business.toCurrencyNotation(money, true));
+            moneyView.setText("Money: " + Business.toCurrencyNotation(money, true));
         });
     }
 }

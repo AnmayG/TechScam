@@ -31,16 +31,17 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private final SaveViewModel viewModel;
     private final Resources resources;
+    private final String packageName;
 
     // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
     // This seems like a pretty hacky way to do it but it lets me update all of the textviews at the same time whenever the money changes.
 
     public ManagerRecyclerViewAdapter(List<ManagerItem> items, SaveViewModel viewModel,
                                       ManagerFragmentListBinding binding, LifecycleOwner viewLifecycleOwner,
-                                      Resources resources) {
-
+                                      Resources resources, String packageName) {
         this.viewModel = viewModel;
         this.resources = resources;
+        this.packageName = packageName;
 
         mValues = items;
         // Check to see if the model save has the values, and if not then set it. If so pull from the save.
@@ -61,7 +62,6 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
                     // TODO: Add UI change here
                 } else {
                     managerItem.activated = false;
-                    System.out.println("here");
                     // TODO: Add UI change here
                 }
             }
@@ -82,8 +82,10 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         holder.mContentView.setText(managerItem.content);
         holder.mDetailsView.setText(managerItem.details);
         holder.mPriceView.setText(Business.toCurrencyNotation(managerItem.price, true));
+
+        String image = businesses.get(getWorkingPosition(position)).getImg();
         holder.mImageView.setImageDrawable(ResourcesCompat.getDrawable(resources,
-                resources.getIdentifier(img, "drawable", packageName), null));
+                resources.getIdentifier(image, "drawable", packageName), null));
 
         holder.buyButton.setOnClickListener(view -> {
             int p = getWorkingPosition(position);
