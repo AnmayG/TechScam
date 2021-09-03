@@ -1,5 +1,9 @@
 package com.example.tycoongamev3;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.example.tycoongamev3.Business;
 import com.example.tycoongamev3.MainActivity;
 
@@ -29,17 +33,20 @@ public class ManagerContent {
     /**
      * A map of sample (Manager) items, by ID.
      */
-    public static final Map<String, ManagerItem> ITEM_MAP = new HashMap<String, ManagerItem>();
+    public static final Map<String, ManagerItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = businesses.size();
 
     // This came with the template and is kind of like a constructor that is called when the class is created
     static {
         // Add some sample items.
+        if(managerNames.length != businesses.size()) {
+            Log.e("Manager Content", "Number of managers and businesses do not equal each other.");
+        }
+
         for (int i = 0; i < COUNT; i++) {
             addItem(createManagerItem(i));
         }
-
     }
 
     private static void addItem(ManagerItem item) {
@@ -73,6 +80,7 @@ public class ManagerContent {
             this.price = price;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return content;

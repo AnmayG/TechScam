@@ -27,7 +27,6 @@ public class ManagerFragment extends Fragment {
     protected RecyclerView recyclerView;
 
     private SaveViewModel viewModel;
-    // need an object reference so I'm using an array
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,7 +58,7 @@ public class ManagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = ManagerFragmentListBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.manager_list);
+        recyclerView = rootView.findViewById(R.id.manager_list);
 
         // Set the adapter
         Context context = recyclerView.getContext();

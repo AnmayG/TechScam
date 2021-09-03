@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -80,6 +81,9 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
                 p = removeAt(holder.getBindingAdapterPosition());
                 businesses.get(p).setManager(true);
                 this.viewModel.addMoney(saveValues.get(p).price.negate());
+            } else if (!businesses.get(p).isUnlocked()){
+                Toast toast = Toast.makeText(holder.mContentView.getContext(), "You need to own a business before hiring a manager.", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
