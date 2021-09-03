@@ -31,7 +31,7 @@ Things to do:
 - [ ] Deal with bugs
     - [ ] The business needs to be bought before it can be upgraded
     - [ ] An unbought business will continue to tick as long as it has a manager
-    - [ ] Large amounts of money won't work
+    - [x] Large amounts of money won't work
     - Going to be bugs with the money system
         - Need to get money working better
 - [x] Deactivate buttons and prevent them from purchasing things if they don't fit the criteria

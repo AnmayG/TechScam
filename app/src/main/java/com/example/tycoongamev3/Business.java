@@ -34,7 +34,7 @@ public class Business {
     private final double costCoeff;
     private final double revenue;
     private final int cooldown;
-    private final long unlockCost;
+    private final BigDecimal unlockCost;
     private final String img;
 
     // The views associated with the business, created in BusinessRecyclerViewAdapter.java
@@ -60,19 +60,20 @@ public class Business {
     private static final NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(Locale.US);
     private int multiplier = 1;
     private boolean isManager = false;
+    private boolean purchasable = false;
 
     public String getName() { return name; }
     public int getInitCost() { return initCost; }
     public double getRevenue() { return revenue; }
     public int getCooldown() { return cooldown; }
-    public int getLevel() {
-        return level;
-    }
+    public int getLevel() { return level; }
     public boolean isUnlocked() { return unlocked; }
     public int getProgressValue() { return progressValue; }
     public void setTopBar(FrameLayout topBar) { this.topBar = topBar; }
-    public long getUnlockCost() { return unlockCost; }
+    public BigDecimal getUnlockCost() { return unlockCost; }
     public long getCostStorage() { return costStorage; }
+    public boolean isPurchasable() { return purchasable; }
+    public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
 
     public void setMultiplier(int multiplier) {
         this.multiplier *= multiplier;
@@ -94,7 +95,7 @@ public class Business {
         costCoeff = Double.parseDouble(getValue("cost_coeff"));
         revenue = Double.parseDouble(getValue("revenue"));
         cooldown = Integer.parseInt(getValue("cooldown"));
-        unlockCost = Long.parseLong(getValue("unlock_cost"));
+        unlockCost = BigDecimal.valueOf(Long.parseLong(getValue("unlock_cost")));
         img = getValue("img");
 
         progressTask = buildProgressTask();
@@ -253,14 +254,16 @@ public class Business {
 
         // This has everything show up when the blocker is clicked or purchased
         blocker.setOnClickListener(view -> {
-            textView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-            button.setVisibility(View.VISIBLE);
-            levelView.setVisibility(View.VISIBLE);
-            revView.setVisibility(View.VISIBLE);
-            blocker.setVisibility(View.GONE);
-            unlocked = true;
+            if(purchasable) {
+                textView.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);
+                levelView.setVisibility(View.VISIBLE);
+                revView.setVisibility(View.VISIBLE);
+                blocker.setVisibility(View.GONE);
+                unlocked = true;
+            }
         });
 
         button.setText(toCurrencyNotation(costStorage, false));
@@ -325,7 +328,7 @@ public class Business {
                         "  Cost Coeff: %f\n" +
                         "  Revenue: %f\n" +
                         "  Cooldown: %d\n" +
-                        "  Unlock Cost: %d\n" +
+                        "  Unlock Cost: %b\n" +
                         "  Image: %s\n" +
                         "  Element: %s\n",
                 name, initCost, costCoeff, revenue, cooldown, unlockCost, img, src);

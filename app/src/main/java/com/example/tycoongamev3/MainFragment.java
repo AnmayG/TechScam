@@ -52,7 +52,7 @@ public class MainFragment extends Fragment {
         rootView.setTag(TAG);
 
         // BEGIN_INCLUDE(initializeRecyclerView)
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        mRecyclerView = rootView.findViewById(R.id.recyclerView);
 
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
@@ -61,7 +61,7 @@ public class MainFragment extends Fragment {
 
         setRecyclerViewLayoutManager();
 
-        mAdapter = new BusinessRecyclerViewAdapter(mDataset);
+        mAdapter = new BusinessRecyclerViewAdapter(mDataset, viewModel, binding, getViewLifecycleOwner());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -102,7 +102,7 @@ public class MainFragment extends Fragment {
         binding.buttonPrestige.setOnClickListener(view1 -> NavHostFragment.findNavController(MainFragment.this)
                 .navigate(R.id.action_SecondFragment_to_PrestigeFragment));
 
-        TextView topView = (TextView) binding.topLayout.findViewById(R.id.topTextView);
+        TextView topView = binding.topLayout.findViewById(R.id.topTextView);
         topView.setText(Business.toCurrencyNotation(getMoney(), true));
 
         viewModel.getMoney().observe(getViewLifecycleOwner(), set -> {

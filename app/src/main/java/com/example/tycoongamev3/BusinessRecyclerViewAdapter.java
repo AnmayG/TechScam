@@ -10,8 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tycoongamev3.databinding.MainFragmentBinding;
+import com.example.tycoongamev3.databinding.UpgradeFragmentListBinding;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 // Code used from here: https://github.com/android/views-widgets-samples/tree/main/RecyclerView
@@ -21,6 +26,9 @@ import java.util.ArrayList;
  */
 public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRecyclerViewAdapter.ViewHolder> {
     private final ArrayList<Business> mDataSet;
+    private MoneyViewModel viewModel;
+    private BigDecimal money = BigDecimal.ZERO;
+    private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -68,12 +76,34 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
+
+
     /**
      * Initialize the dataset of the Adapter.
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public BusinessRecyclerViewAdapter(ArrayList<Business> dataSet) {
+    public BusinessRecyclerViewAdapter(ArrayList<Business> dataSet, MoneyViewModel viewModel,
+                                       MainFragmentBinding binding, LifecycleOwner viewLifecycleOwner) {
         mDataSet = dataSet;
+
+        this.viewModel = viewModel;
+        this.viewModel.getMoney().observe(viewLifecycleOwner, money -> {
+            TextView moneyView = binding.topLayout.findViewById(R.id.topTextView);
+            moneyView.setText(Business.toCurrencyNotation(money, true));
+            this.money = money;
+            for (int i = 0; i < businesses.size(); i++) {
+                Business business = businesses.get(i);
+                if(business.isPurchasable()) continue;
+                if(money.subtract(business.getUnlockCost().multiply(BigDecimal.valueOf(100)))
+                        .compareTo(BigDecimal.ZERO) >= 0) {
+                    business.setPurchasable(true);
+                    // TODO: Add UI change here
+                } else {
+                    business.setPurchasable(false);
+                    // TODO: Add UI change here
+                }
+            }
+        });
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -112,7 +142,7 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
         }
 
         String blockerText = business.getName() + ": " +
-                             Business.toCurrencyNotation(business.getUnlockCost()*100, false);
+                             Business.toCurrencyNotation(business.getUnlockCost().multiply(BigDecimal.valueOf(100)), false);
         viewHolder.getBlocker().setText(blockerText);
         viewHolder.getTextView().setText(business.formatSecondsToTimeStamp(business.getCooldown()));
         viewHolder.getLevelView().setText(String.valueOf(business.getLevel()));

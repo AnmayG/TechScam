@@ -3,6 +3,8 @@ package com.example.tycoongamev3;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,7 +27,7 @@ public class UpgradeContent {
      * A map of sample (Upgrade) items, by ID.
      * Came with standard ListView template.
      */
-    public static final Map<String, UpgradeItem> ITEM_MAP = new HashMap<String, UpgradeItem>();
+    public static final Map<String, UpgradeItem> ITEM_MAP = new HashMap<>();
 
     // This is a static version of the constructor that gets run when the class is loaded.
     // It came with the template.
@@ -67,7 +69,6 @@ public class UpgradeContent {
             }
         }
 
-        System.out.println(upgradeNames.size() + " " + businesses.size());
         if(upgradeNames.size() % businesses.size() != 0){
             // logs are actually pretty useful
             Log.e("UPGRADE_CONTENT", "Upgrade names not available for all businesses.");
@@ -108,6 +109,7 @@ public class UpgradeContent {
             this.price = price;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return content;
