@@ -1,5 +1,6 @@
 package com.example.tycoongamev3;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,14 +30,17 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     private final List<ManagerItem> mValues;
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private final SaveViewModel viewModel;
+    private final Resources resources;
 
     // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
     // This seems like a pretty hacky way to do it but it lets me update all of the textviews at the same time whenever the money changes.
 
     public ManagerRecyclerViewAdapter(List<ManagerItem> items, SaveViewModel viewModel,
-                                      ManagerFragmentListBinding binding, LifecycleOwner viewLifecycleOwner) {
+                                      ManagerFragmentListBinding binding, LifecycleOwner viewLifecycleOwner,
+                                      Resources resources) {
 
         this.viewModel = viewModel;
+        this.resources = resources;
 
         mValues = items;
         // Check to see if the model save has the values, and if not then set it. If so pull from the save.
@@ -77,6 +82,8 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         holder.mContentView.setText(managerItem.content);
         holder.mDetailsView.setText(managerItem.details);
         holder.mPriceView.setText(Business.toCurrencyNotation(managerItem.price, true));
+        holder.mImageView.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                resources.getIdentifier(img, "drawable", packageName), null));
 
         holder.buyButton.setOnClickListener(view -> {
             int p = getWorkingPosition(position);

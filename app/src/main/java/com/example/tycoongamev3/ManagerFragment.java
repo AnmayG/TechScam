@@ -1,6 +1,7 @@
 package com.example.tycoongamev3;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,8 @@ public class ManagerFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
-        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
+        Resources res = getResources();
+        recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner(), res));
         return rootView;
     }
 
