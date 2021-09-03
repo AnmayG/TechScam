@@ -290,6 +290,7 @@ public class Business {
                 levelView.setVisibility(View.VISIBLE);
                 revView.setVisibility(View.VISIBLE);
                 blocker.setVisibility(View.GONE);
+                setMoneyView(unlockCost.multiply(BigDecimal.valueOf(-100L)));
                 unlocked = true;
             }
         });

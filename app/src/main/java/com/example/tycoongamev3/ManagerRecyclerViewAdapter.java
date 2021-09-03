@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,9 +54,9 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
                 if(money.subtract(managerItem.price).compareTo(BigDecimal.ZERO) >= 0) {
                     managerItem.activated = true;
                     // TODO: Add UI change here
-
                 } else {
                     managerItem.activated = false;
+                    System.out.println("here");
                     // TODO: Add UI change here
                 }
             }
@@ -72,6 +73,7 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         ManagerItem managerItem = mValues.get(position);
         holder.mItem = managerItem;
+        managerItem.button = holder.buyButton;
         holder.mContentView.setText(managerItem.content);
         holder.mDetailsView.setText(managerItem.details);
         holder.mPriceView.setText(Business.toCurrencyNotation(managerItem.price, true));
