@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
     protected BusinessRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Business> mDataset;
-    private static MoneyViewModel viewModel;
+    private static SaveViewModel viewModel;
 
     public static void addMoney(long money2) {
         viewModel.addMoney(money2);
@@ -40,7 +40,10 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mDataset = MainActivity.getBusinesses();
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
+
+        // TODO: Get rid of max money mode
+        viewModel.addMoney(Long.MAX_VALUE);
     }
 
     // RecyclerView Code used from:

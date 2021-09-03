@@ -5,14 +5,12 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tycoongamev3.UpgradeContent.UpgradeItem;
-import com.example.tycoongamev3.databinding.ManagerFragmentListBinding;
 import com.example.tycoongamev3.databinding.UpgradeFragmentBinding;
 import com.example.tycoongamev3.databinding.UpgradeFragmentListBinding;
 
@@ -31,9 +29,9 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
     private static List<UpgradeItem> saveValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
     private BigDecimal money = BigDecimal.ZERO;
-    private MoneyViewModel viewModel;
+    private SaveViewModel viewModel;
 
-    public UpgradeRecyclerViewAdapter(List<UpgradeItem> items, MoneyViewModel viewModel,
+    public UpgradeRecyclerViewAdapter(List<UpgradeItem> items, SaveViewModel viewModel,
                                       UpgradeFragmentListBinding binding, LifecycleOwner viewLifecycleOwner) {
         // If the working values (or at least its size) is equal to the save that we have, set the items to the new input.
         // This is because I want to have the latest copy of `items` but I don't want to change workingValues if it's already been bought.
@@ -82,8 +80,9 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
             if(saveValues.get(p).activated) {
                 p = removeAt(holder.getBindingAdapterPosition());
                 int multi = 10 + 10 * (p/businesses.size());
+                System.out.println(p % businesses.size() + " " + businesses.size() + " " + businesses.get(p % businesses.size()));
                 businesses.get(p % businesses.size()).setMultiplier(multi);
-                this.viewModel.addMoney(-1 * saveValues.get(p).price.longValueExact());
+                this.viewModel.addMoney(saveValues.get(p).price.negate());
             }
         });
     }
@@ -97,7 +96,6 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
     }
 
     public int getWorkingPosition(int position){
-        int p = saveValues.indexOf(workingValues.get(position));
         return saveValues.indexOf(workingValues.get(position));
     }
 

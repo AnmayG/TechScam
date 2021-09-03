@@ -1,6 +1,5 @@
 package com.example.tycoongamev3;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tycoongamev3.databinding.MainFragmentBinding;
-import com.example.tycoongamev3.databinding.UpgradeFragmentListBinding;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
  */
 public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRecyclerViewAdapter.ViewHolder> {
     private final ArrayList<Business> mDataSet;
-    private MoneyViewModel viewModel;
+    private SaveViewModel viewModel;
     private BigDecimal money = BigDecimal.ZERO;
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
 
@@ -82,7 +80,7 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
      * Initialize the dataset of the Adapter.
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public BusinessRecyclerViewAdapter(ArrayList<Business> dataSet, MoneyViewModel viewModel,
+    public BusinessRecyclerViewAdapter(ArrayList<Business> dataSet, SaveViewModel viewModel,
                                        MainFragmentBinding binding, LifecycleOwner viewLifecycleOwner) {
         mDataSet = dataSet;
 

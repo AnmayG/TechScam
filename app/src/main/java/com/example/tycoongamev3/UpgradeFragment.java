@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tycoongamev3.databinding.UpgradeFragmentListBinding;
-import com.example.tycoongamev3.UpgradeContent;
 
 /**
  * A fragment representing a list of Items.
@@ -28,7 +27,7 @@ public class UpgradeFragment extends Fragment {
     private UpgradeFragmentListBinding binding;
     protected RecyclerView recyclerView;
 
-    private MoneyViewModel viewModel;
+    private SaveViewModel viewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -66,7 +65,7 @@ public class UpgradeFragment extends Fragment {
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
         recyclerView.setAdapter(new UpgradeRecyclerViewAdapter(UpgradeContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
         return rootView;
     }
@@ -77,7 +76,7 @@ public class UpgradeFragment extends Fragment {
         binding.button.setOnClickListener(view1 -> NavHostFragment.findNavController(UpgradeFragment.this)
                 .navigate(R.id.action_UpgradeFragment_to_SecondFragment));
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
         viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
             moneyView.setText(Business.toCurrencyNotation(money, true));

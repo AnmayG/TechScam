@@ -77,7 +77,9 @@ public class Business {
 
     public void setMultiplier(int multiplier) {
         this.multiplier *= multiplier;
-        revView.setText(toCurrencyNotation(calculateRev(), true));
+        if(revView != null) {
+            revView.setText(toCurrencyNotation(calculateRev(), true));
+        }
     }
 
     public void setManager(boolean b){

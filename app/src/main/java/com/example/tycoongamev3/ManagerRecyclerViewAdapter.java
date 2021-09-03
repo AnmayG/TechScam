@@ -22,27 +22,31 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link ManagerItem}.
  */
 public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecyclerViewAdapter.ViewHolder> {
-    private List<ManagerItem> saveValues = new ArrayList<>();
-    private List<ManagerItem> mValues = new ArrayList<>();
+    private final List<ManagerItem> saveValues;
+    private final List<ManagerItem> mValues;
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
-    private BigDecimal money = BigDecimal.ZERO;
-    private MoneyViewModel viewModel;
+    private final SaveViewModel viewModel;
 
     // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
     // This seems like a pretty hacky way to do it but it lets me update all of the textviews at the same time whenever the money changes.
 
-    public ManagerRecyclerViewAdapter(List<ManagerItem> items, MoneyViewModel viewModel,
+    public ManagerRecyclerViewAdapter(List<ManagerItem> items, SaveViewModel viewModel,
                                       ManagerFragmentListBinding binding, LifecycleOwner viewLifecycleOwner) {
-        if(saveValues.size() == mValues.size()) {
-            mValues = items;
-            saveValues = new ArrayList<>(items);
-        }
 
         this.viewModel = viewModel;
+
+        mValues = items;
+        // Check to see if the model save has the values, and if not then set it. If so pull from the save.
+        if(viewModel.getSaveManagerValues().getValue() == null) {
+            saveValues = new ArrayList<>(items);
+            viewModel.setSaveManagerValues(saveValues);
+        } else {
+            saveValues = viewModel.getSaveManagerValues().getValue();
+        }
+
         this.viewModel.getMoney().observe(viewLifecycleOwner, money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
             moneyView.setText(Business.toCurrencyNotation(money, true));
-            this.money = money;
             for (int i = 0; i < mValues.size(); i++) {
                 ManagerItem managerItem = mValues.get(i);
                 if(money.subtract(managerItem.price).compareTo(BigDecimal.ZERO) >= 0) {
@@ -72,9 +76,10 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
 
         holder.buyButton.setOnClickListener(view -> {
             int p = getWorkingPosition(position);
-            if(mValues.get(p).activated) {
+            if(saveValues.get(p).activated && businesses.get(p).isUnlocked()) {
                 p = removeAt(holder.getBindingAdapterPosition());
                 businesses.get(p).setManager(true);
+                this.viewModel.addMoney(saveValues.get(p).price.negate());
             }
         });
     }

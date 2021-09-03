@@ -5,6 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.example.tycoongamev3.ManagerContent.ManagerItem;
+import com.example.tycoongamev3.UpgradeContent.UpgradeItem;
 
 // https://developer.android.com/guide/fragments/communicate
 // I'm using a ViewModel to transfer data between the fragments so that I can have live updates for things like the money.
@@ -13,8 +17,9 @@ import java.math.BigDecimal;
 // Also, the FragmentManager that I found used something like ResultListeners, which only run when the fragment is opened/closed
 // Which isn't very good since I want live updates of simple primitive data
 // I think that the FragmentManager is supposed to be for view substitution or insertion rather than data transactions.
-public class MoneyViewModel extends ViewModel {
+public class SaveViewModel extends ViewModel {
     private final MutableLiveData<BigDecimal> money = new MutableLiveData<>(BigDecimal.ZERO);
+    private final MutableLiveData<List<ManagerItem>> saveManagerValues = new MutableLiveData<>();
 
     public LiveData<BigDecimal> getMoney() {
         return money;
@@ -36,5 +41,13 @@ public class MoneyViewModel extends ViewModel {
         } else {
             money.setValue(deposit);
         }
+    }
+
+    public MutableLiveData<List<ManagerItem>> getSaveManagerValues() {
+        return saveManagerValues;
+    }
+
+    public void setSaveManagerValues(List<ManagerItem> l) {
+        saveManagerValues.setValue(l);
     }
 }

@@ -157,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
                     businesses.add(new Business(element2));
                 }
             }
-
         } catch (Exception e) {e.printStackTrace();}
+
+        System.out.println(businesses.get(4) + " " + businesses.get(5));
     }
 
     public static ArrayList<Business> getBusinesses(){

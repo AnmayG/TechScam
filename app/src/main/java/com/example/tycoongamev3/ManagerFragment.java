@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +26,7 @@ public class ManagerFragment extends Fragment {
     private ManagerFragmentListBinding binding;
     protected RecyclerView recyclerView;
 
-    private MoneyViewModel viewModel;
+    private SaveViewModel viewModel;
     // need an object reference so I'm using an array
 
     /**
@@ -66,7 +65,7 @@ public class ManagerFragment extends Fragment {
         Context context = recyclerView.getContext();
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
         recyclerView.setAdapter(new ManagerRecyclerViewAdapter(ManagerContent.ITEMS, viewModel, binding, getViewLifecycleOwner()));
         return rootView;
     }
