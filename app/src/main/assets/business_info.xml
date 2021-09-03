@@ -7,16 +7,16 @@
         <revenue>1</revenue>
         <cooldown>1</cooldown>
         <unlock_cost>0</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>lockpicking</img>
     </profit_source>
     <profit_source>
-        <name>Email Scam</name>
+        <name>Phishing Scam</name>
         <cost_init>50</cost_init>
         <cost_coeff>1.5</cost_coeff>
         <revenue>25</revenue>
         <cooldown>5</cooldown>
         <unlock_cost>25</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>scam</img>
     </profit_source>
     <profit_source>
         <name>Email Virus</name>
@@ -25,16 +25,16 @@
         <revenue>50</revenue>
         <cooldown>10</cooldown>
         <unlock_cost>50</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>virus</img>
     </profit_source>
     <profit_source>
-        <name>DOS Attack</name>
+        <name>DDOS Attack</name>
         <cost_init>500</cost_init>
         <cost_coeff>2</cost_coeff>
         <revenue>250</revenue>
         <cooldown>25</cooldown>
         <unlock_cost>250</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>attack</img>
     </profit_source>
     <profit_source>
         <name>Straight up Hacking</name>
@@ -43,7 +43,7 @@
         <revenue>500</revenue>
         <cooldown>50</cooldown>
         <unlock_cost>500</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>hack</img>
     </profit_source>
     <profit_source>
         <name>Quantum Decryption</name>
@@ -52,7 +52,7 @@
         <revenue>1000</revenue>
         <cooldown>100</cooldown>
         <unlock_cost>2500</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>quantum</img>
     </profit_source>
     <profit_source>
         <name>Server Nuke</name>
@@ -61,6 +61,6 @@
         <revenue>5000</revenue>
         <cooldown>500</cooldown>
         <unlock_cost>5000</unlock_cost>
-        <img>PUT IMAGE SOURCE HERE</img>
+        <img>nuke</img>
     </profit_source>
 </records>

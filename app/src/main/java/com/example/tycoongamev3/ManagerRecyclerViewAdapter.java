@@ -53,6 +53,7 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
                 if(money.subtract(managerItem.price).compareTo(BigDecimal.ZERO) >= 0) {
                     managerItem.activated = true;
                     // TODO: Add UI change here
+
                 } else {
                     managerItem.activated = false;
                     // TODO: Add UI change here

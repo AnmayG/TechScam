@@ -1,5 +1,6 @@
 package com.example.tycoongamev3;
 
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +29,8 @@ public class Business {
     private final Element src;
     private final Runnable progressTask;
     private final Runnable repeatTask;
+    private final Resources res;
+    private final String packageName;
 
     // The data read from business_info.xml
     private final String name;
@@ -91,21 +95,23 @@ public class Business {
         runRepeatTask(0);
     }
 
-    public Business(Element source){
-        src = source;
-        handler = new Handler();
+    public Business(Element source, Resources res, String packageName){
+        this.src = source;
+        this.handler = new Handler();
+        this.res = res;
+        this.packageName = packageName;
 
-        name = getValue("name");
-        initCost = Integer.parseInt(getValue("cost_init"));
-        costCoeff = Double.parseDouble(getValue("cost_coeff"));
-        revenue = Double.parseDouble(getValue("revenue"));
-        cooldown = Integer.parseInt(getValue("cooldown"));
-        unlockCost = BigDecimal.valueOf(Long.parseLong(getValue("unlock_cost")));
-        img = getValue("img");
+        this.name = getValue("name");
+        this.initCost = Integer.parseInt(getValue("cost_init"));
+        this.costCoeff = Double.parseDouble(getValue("cost_coeff"));
+        this.revenue = Double.parseDouble(getValue("revenue"));
+        this.cooldown = Integer.parseInt(getValue("cooldown"));
+        this.unlockCost = BigDecimal.valueOf(Long.parseLong(getValue("unlock_cost")));
+        this.img = getValue("img");
 
-        progressTask = buildProgressTask();
-        repeatTask = buildRepeatTask(0);
-        costStorage = BigDecimal.valueOf(initCost * 100L);
+        this.progressTask = buildProgressTask();
+        this.repeatTask = buildRepeatTask(0);
+        this.costStorage = BigDecimal.valueOf(initCost * 100L);
     }
 
     private String getValue(String tag) {
@@ -241,7 +247,6 @@ public class Business {
 
     public void setMoneyView(BigDecimal deposit){
         MainFragment.addMoney(deposit);
-        // TODO: Deactivate buttons
     }
 
     public static String toCurrencyNotation(BigDecimal d, boolean longForm){
@@ -291,6 +296,7 @@ public class Business {
 
         button.setText(toCurrencyNotation(costStorage, false));
         revView.setText(toCurrencyNotation(calculateRev(), true));
+        imageView.setImageDrawable(ResourcesCompat.getDrawable(res, res.getIdentifier(img, "drawable", packageName), null));
 
         imageView.setOnClickListener(view -> {
             if(!isRunning) {

@@ -3,6 +3,7 @@ package com.example.tycoongamev3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -154,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    businesses.add(new Business(element2));
+                    Resources res = getResources();
+                    businesses.add(new Business(element2, res, getPackageName()));
                 }
             }
         } catch (Exception e) {e.printStackTrace();}

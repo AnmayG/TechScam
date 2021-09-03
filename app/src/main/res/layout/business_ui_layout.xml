@@ -65,33 +65,37 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="108dp"
+            android:layout_height="96dp"
             android:layout_margin="4dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/filler"
-            android:maxWidth="108dp"
-            android:maxHeight="108dp"
+            android:foreground="@drawable/circle"
+            android:maxWidth="96dp"
+            android:maxHeight="96dp"
             android:scaleType="fitCenter"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/ic_launcher_background"
+            tools:targetApi="m" />
 
 
         <TextView
             android:id="@+id/levelTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/deactivated"
             android:text="@string/filler"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="invisible"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/revView"

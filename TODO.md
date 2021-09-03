@@ -12,17 +12,17 @@ Things to do:
         - [x] Remember to flip the blocker on and off so that it's not just empty.
     - [ ] Make it look nice and change the theme
         - [ ] https://stackoverflow.com/questions/13153201/how-to-show-circular-text-using-textview-in-android
-        - [ ] Pictures: https://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
+        - [x] Pictures: https://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
         - [ ] Borders: https://stackoverflow.com/questions/3496269/how-do-i-put-a-border-around-an-android-textview
-        - [ ] Circular ImageView: https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
+        - [x] Circular ImageView: https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
 - [x] Incorporate upgrades
     - [x] Managers feels like a bit much but it is doable
     - [x] Other upgrades is just normal things
-- [ ] Figure out how to switch between fragments with a nice transition
-    - [x] ViewPager is good.
+- [x] Figure out how to switch between fragments with a nice transition
+    - [ ] ViewPager is good.
     - [ ] https://developer.android.com/guide/fragments/animate
     - [ ] https://developer.android.com/guide/topics/resources/animation-resource#java
-    - [ ] https://developer.android.com/guide/navigation/navigation-animate-transitions
+    - [x] https://developer.android.com/guide/navigation/navigation-animate-transitions
 - [x] Main thing is the RecyclerView part
 - [ ] Write user info to a file so that it saves
     - [ ] https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/
@@ -38,3 +38,16 @@ Things to do:
     - This, the background algorithm, and the UI cleanup are the most important.
 - [ ] Need to get the prestige system working somehow
     - [x] Problem is going to be the background algorithm, might just be total money collected / some number
+- [ ] Background algorithm
+    - [ ] Use onResume() and onPause() to record time in between runs
+    - [ ] Save user information into a file so that they save their stuff
+- [ ] Prestige system
+    - [ ] Need to add a full reset rather than the money reset I have now
+        - Reinitialize fragment?
+- [ ] UI cleanup
+    - [x] Add images
+    - [ ] Fix the TextViews so that they look nice
+        - [ ] Either add a cool looking border or change the background image
+    - [ ] Background image for each page, just a nicer background than plain white
+    - [ ] Banner for prestige fragment
+    - [ ] Buttons need to change color when inactive
