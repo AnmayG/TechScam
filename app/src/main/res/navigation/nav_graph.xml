@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -23,13 +27,19 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_ManagerFragment"
-            app:destination="@id/ManagerFragment" />
+            app:destination="@id/ManagerFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_SecondFragment_to_UpgradeFragment"
-            app:destination="@id/UpgradeFragment" />
+            app:destination="@id/UpgradeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_SecondFragment_to_PrestigeFragment"
-            app:destination="@id/prestigeFragment2" />
+            app:destination="@id/prestigeFragment2"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/ManagerFragment"
@@ -38,7 +48,9 @@
         tools:layout="@layout/manager_fragment_list">
         <action
             android:id="@+id/action_ManagerFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/UpgradeFragment"
@@ -47,7 +59,9 @@
         tools:layout="@layout/upgrade_fragment_list">
         <action
             android:id="@+id/action_UpgradeFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/prestigeFragment2"
@@ -57,7 +71,7 @@
         <action
             android:id="@+id/action_PrestigeFragment_to_SecondFragment"
             app:destination="@id/SecondFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>
