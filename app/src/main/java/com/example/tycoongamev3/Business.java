@@ -210,7 +210,6 @@ public class Business {
         // TODO: Deactivate buttons
     }
 
-    // FIXME: A long isn't big enough to store quintillions of dollars so that's a problem.
     public static String toCurrencyNotation(long d, boolean longForm){
         double d2 = d / 100.0;
         if(d2 < 1000 && d2 > -1000) {
@@ -222,12 +221,11 @@ public class Business {
         }
     }
     public static String toCurrencyNotation(BigDecimal d, boolean longForm){
-        BigDecimal thousand = BigDecimal.valueOf(1000);
         d = d.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN);
-        if(d.compareTo(thousand) < 0 && d.compareTo(thousand.multiply(BigDecimal.valueOf(-1))) > 0) {
+        if(d.compareTo(BigDecimal.valueOf(1000)) < 0 && d.compareTo(BigDecimal.valueOf(-1000)) > 0) {
             return dollarFormat.format(d);
         }else if(d.compareTo(BigDecimal.valueOf(-1000)) <= 0) {
-            return "-$" + NumberNames.createString(d, longForm);
+            return "-$" + NumberNames.createString(d.negate(), longForm);
         }else{
             return "$" + NumberNames.createString(d, longForm);
         }

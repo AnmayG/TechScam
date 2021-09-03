@@ -29,7 +29,6 @@ public class UpgradeFragment extends Fragment {
     protected RecyclerView recyclerView;
 
     private MoneyViewModel viewModel;
-    private long money = 0L;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,7 +81,6 @@ public class UpgradeFragment extends Fragment {
         viewModel.getMoney().observe(getViewLifecycleOwner(), money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
             moneyView.setText(Business.toCurrencyNotation(money, true));
-            this.money = money;
         });
     }
 }

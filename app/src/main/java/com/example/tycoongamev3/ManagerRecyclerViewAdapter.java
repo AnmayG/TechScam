@@ -14,6 +14,7 @@ import com.example.tycoongamev3.ManagerContent.ManagerItem;
 import com.example.tycoongamev3.databinding.ManagerFragmentBinding;
 import com.example.tycoongamev3.databinding.ManagerFragmentListBinding;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
     private List<ManagerItem> saveValues = new ArrayList<>();
     private List<ManagerItem> mValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
-    private final long[] money = {0L};
+    private BigDecimal money = BigDecimal.ZERO;
     private MoneyViewModel viewModel;
 
     // I'm using Fragement Transactions on the money property so that I can update this fragment's textview
@@ -41,10 +42,10 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         this.viewModel.getMoney().observe(viewLifecycleOwner, money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
             moneyView.setText(Business.toCurrencyNotation(money, true));
-            this.money[0] = money;
+            this.money = money;
             for (int i = 0; i < mValues.size(); i++) {
                 ManagerItem managerItem = mValues.get(i);
-                if(money - managerItem.price.longValueExact() >= 0) {
+                if(money.subtract(managerItem.price).compareTo(BigDecimal.ZERO) >= 0) {
                     managerItem.activated = true;
                     // TODO: Add UI change here
                 } else {
@@ -68,7 +69,6 @@ public class ManagerRecyclerViewAdapter extends RecyclerView.Adapter<ManagerRecy
         holder.mContentView.setText(managerItem.content);
         holder.mDetailsView.setText(managerItem.details);
         holder.mPriceView.setText(Business.toCurrencyNotation(managerItem.price, true));
-        // TODO: Deactivate buttons on bind if unaffordable
 
         holder.buyButton.setOnClickListener(view -> {
             int p = getWorkingPosition(position);

@@ -30,7 +30,7 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
      */
     private static List<UpgradeItem> saveValues = new ArrayList<>();
     private static final ArrayList<Business> businesses = MainActivity.getBusinesses();
-    private final long[] money = {0L};
+    private BigDecimal money = BigDecimal.ZERO;
     private MoneyViewModel viewModel;
 
     public UpgradeRecyclerViewAdapter(List<UpgradeItem> items, MoneyViewModel viewModel,
@@ -49,10 +49,10 @@ public class UpgradeRecyclerViewAdapter extends RecyclerView.Adapter<UpgradeRecy
         this.viewModel.getMoney().observe(viewLifecycleOwner, money -> {
             TextView moneyView = binding.topLayout.findViewById(R.id.moneyView);
             moneyView.setText(Business.toCurrencyNotation(money, true));
-            this.money[0] = money;
+            this.money = money;
             for (int i = 0; i < workingValues.size(); i++) {
                 UpgradeItem upgradeItem = workingValues.get(i);
-                if(money - upgradeItem.price.longValueExact() >= 0) {
+                if(money.subtract(upgradeItem.price).compareTo(BigDecimal.ZERO) >= 0) {
                     upgradeItem.activated = true;
                     // TODO: Add UI change here
                 } else {

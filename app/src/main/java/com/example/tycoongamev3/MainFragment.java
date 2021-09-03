@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tycoongamev3.databinding.MainFragmentBinding;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
@@ -25,22 +26,21 @@ public class MainFragment extends Fragment {
     protected BusinessRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Business> mDataset;
-    public static long[] money = {0};
     private static MoneyViewModel viewModel;
 
     public static void addMoney(long money2) {
-        MainFragment.money[0] += money2;
         viewModel.addMoney(money2);
     }
 
-    public static long getMoney() {
-        return MainFragment.money[0];
+    public static BigDecimal getMoney() {
+        return viewModel.getMoney().getValue();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mDataset = MainActivity.getBusinesses();
+        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
     }
 
     // RecyclerView Code used from:
@@ -105,7 +105,6 @@ public class MainFragment extends Fragment {
         TextView topView = (TextView) binding.topLayout.findViewById(R.id.topTextView);
         topView.setText(Business.toCurrencyNotation(getMoney(), true));
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MoneyViewModel.class);
         viewModel.getMoney().observe(getViewLifecycleOwner(), set -> {
             // Update the selected filters UI
             topView.setText(Business.toCurrencyNotation(getMoney(), true));

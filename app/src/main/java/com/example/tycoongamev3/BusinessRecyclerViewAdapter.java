@@ -41,13 +41,13 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
             v.setOnClickListener(v1 -> {
 
             });
-            blocker = (TextView) v.findViewById(R.id.blocker);
-            textView = (TextView) v.findViewById(R.id.textView);
-            imageView = (ImageView) v.findViewById(R.id.imageView);
-            progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-            button = (Button) v.findViewById(R.id.button);
-            levelView = (TextView) v.findViewById(R.id.levelTextView);
-            revView = (TextView) v.findViewById(R.id.revView);
+            blocker = v.findViewById(R.id.blocker);
+            textView = v.findViewById(R.id.textView);
+            imageView = v.findViewById(R.id.imageView);
+            progressBar = v.findViewById(R.id.progressBar);
+            button = v.findViewById(R.id.button);
+            levelView = v.findViewById(R.id.levelTextView);
+            revView = v.findViewById(R.id.revView);
         }
 
         public TextView getTextView() {

@@ -1,6 +1,7 @@
 package com.example.tycoongamev3;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,6 +65,12 @@ public class UpgradeContent {
                     e.printStackTrace();
                 }
             }
+        }
+
+        System.out.println(upgradeNames.size() + " " + businesses.size());
+        if(upgradeNames.size() % businesses.size() != 0){
+            // logs are actually pretty useful
+            Log.e("UPGRADE_CONTENT", "Upgrade names not available for all businesses.");
         }
     }
 

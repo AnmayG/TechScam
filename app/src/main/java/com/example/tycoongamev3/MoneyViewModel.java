@@ -14,27 +14,27 @@ import java.math.BigDecimal;
 // Which isn't very good since I want live updates of simple primitive data
 // I think that the FragmentManager is supposed to be for view substitution or insertion rather than data transactions.
 public class MoneyViewModel extends ViewModel {
-    private final MutableLiveData<Long> money = new MutableLiveData<>(0L);
+    private final MutableLiveData<BigDecimal> money = new MutableLiveData<>(BigDecimal.ZERO);
 
-    public LiveData<Long> getMoney() {
+    public LiveData<BigDecimal> getMoney() {
         return money;
     }
 
     public void addMoney(long deposit) {
         if(money.getValue() != null) {
-            long out = money.getValue() + deposit;
+            BigDecimal out = money.getValue().add(BigDecimal.valueOf(deposit));
             money.setValue(out);
         } else {
-            money.setValue(deposit);
+            money.setValue(BigDecimal.valueOf(deposit));
         }
     }
 
     public void addMoney(BigDecimal deposit) {
         if(money.getValue() != null) {
-            long out = money.getValue() + deposit.longValueExact();
+            BigDecimal out = money.getValue().add(deposit);
             money.setValue(out);
         } else {
-            money.setValue(deposit.longValueExact());
+            money.setValue(deposit);
         }
     }
 }
