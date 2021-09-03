@@ -74,6 +74,7 @@ public class Business {
     public int getProgressValue() { return progressValue; }
     public void setTopBar(FrameLayout topBar) { this.topBar = topBar; }
     public long getUnlockCost() { return unlockCost; }
+    public long getCostStorage() { return costStorage; }
 
     public void setMultiplier(int multiplier) {
         this.multiplier *= multiplier;
@@ -268,7 +269,9 @@ public class Business {
             unlocked = true;
         });
 
+        System.out.println("HERE" + costStorage);
         button.setText(toCurrencyNotation(costStorage, false));
+        System.out.println(button.getText());
         revView.setText(toCurrencyNotation(calculateRev(), true));
 
         imageView.setOnClickListener(view -> {

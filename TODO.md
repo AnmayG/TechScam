@@ -34,7 +34,7 @@ Things to do:
     - [ ] Large amounts of money won't work
     - Going to be bugs with the money system
         - Need to get money working better
-- [ ] Deactivate buttons and prevent them from purchasing things if they don't fit the criteria
+- [x] Deactivate buttons and prevent them from purchasing things if they don't fit the criteria
     - This, the background algorithm, and the UI cleanup are the most important.
 - [ ] Need to get the prestige system working somehow
     - [ ] Problem is going to be the background algorithm, might just be total money collected / some number

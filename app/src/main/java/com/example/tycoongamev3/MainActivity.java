@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("time_save", time);
         editor.apply();
+        System.out.println("here boys");
     }
 
     @Override
