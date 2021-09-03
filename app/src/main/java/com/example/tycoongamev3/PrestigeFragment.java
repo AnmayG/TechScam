@@ -85,6 +85,7 @@ public class PrestigeFragment extends Fragment {
 
             // TODO: Add a reset function that'll reset everything
             //  Right now it's just zeroing the money and leaving it.
+            //  You can do this by setting all of the unlockables up again
             viewModel.setMoneyZero();
         });
     }

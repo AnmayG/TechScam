@@ -44,7 +44,7 @@ public class MainFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SaveViewModel.class);
 
         // TODO: Get rid of max money mode
-        viewModel.addMoney(BigDecimal.valueOf(Long.MAX_VALUE));
+        //viewModel.addMoney(BigDecimal.valueOf(Long.MAX_VALUE));
     }
 
     // RecyclerView Code used from:

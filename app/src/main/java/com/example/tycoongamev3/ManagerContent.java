@@ -1,6 +1,7 @@
 package com.example.tycoongamev3;
 
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -55,6 +56,7 @@ public class ManagerContent {
     }
 
     private static ManagerItem createManagerItem(int position) {
+        // TODO: Fix pricing of managers, it's really stupid right now
         return new ManagerItem(String.valueOf(position), managerNames[position], makeDetails(position),
                 BigDecimal.valueOf(10).pow(position + 3).multiply(BigDecimal.valueOf(businesses.get(position).getInitCost())));
     }
@@ -72,6 +74,7 @@ public class ManagerContent {
         public final String details;
         public final BigDecimal price;
         public boolean activated = false;
+        public Button button;
 
         public ManagerItem(String id, String content, String details, BigDecimal price) {
             this.id = id;
